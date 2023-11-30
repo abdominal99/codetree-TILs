@@ -1,36 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
-    int l1, l2;
-    scanf("%d %d", &l1, &l2);
-    int *n1 = (int *)malloc(sizeof(int)*l1);
-    int *n2 = (int *)malloc(sizeof(int)*l2);
-
+void input(int *p, int k) {
     int i;
-    for(i=0;i<l1;i++) {
-        scanf("%d", &n1[i]);
-    }
-    for(i=0;i<l2;i++) {
-        scanf("%d", &n2[i]);
-    }
-    
-    int valid = 0;
-    int j;
-    for(i=0;i<l1;i++) {
-        if(n1[i]==n2[0]) {
-            if(l1-i<l2) break;
-            valid = 1;
-            for(j=1;j<l2;j++) {
-                if(n1[i+j]!=n2[j]) {
-                    valid = 0;
-                    break;
-                }
-            }
+    for (i = 0; i < k; i++)
+        scanf("%d", &p[i]);
+}
+
+int fun(int *x, int *y, int n, int m) {
+    int i, j, start;
+    for (i = 0; i < n; i++) {
+        if (x[i] == y[0]) {
+            start = i;
+            break;
         }
     }
+    if (n - start < m) return 0;
+    j = 0; 
+    for (i = start; i < n && j < m; i++, j++)
+        if (x[i] != y[j]) return 0;
+    return 1;
+}
 
-    if(valid != 1) printf("No");
-    else printf("Yes");
+int main() {
+    int n, m;
+    int sw;
+    int *p1, *p2;
+   
+    scanf("%d %d", &n, &m);
+
+    p1 = (int *)malloc(sizeof(int) * n);
+    p2 = (int *)malloc(sizeof(int) * m);
+
+    input(p1, n);
+    input(p2, m);
+
+    sw = fun(p1, p2, n, m);
+
+    if (sw == 1)
+        printf("Yes\n");
+    else
+        printf("No\n");
+
+
+    free(p1);
+    free(p2);
+
     return 0;
 }
