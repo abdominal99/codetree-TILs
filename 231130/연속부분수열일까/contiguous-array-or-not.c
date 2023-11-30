@@ -7,16 +7,20 @@ void input(int *p, int k) {
         scanf("%d", &p[i]);
 }
 
+
 int fun(int *x, int *y, int n, int m) {
     int i, j, start;
+
     for (i = 0; i < n; i++) {
         if (x[i] == y[0]) {
             start = i;
             break;
         }
     }
+    
     if (n - start < m) return 0;
     j = 0; 
+
     for (i = start; i < n && j < m; i++, j++)
         if (x[i] != y[j]) return 0;
     return 1;
@@ -26,12 +30,13 @@ int main() {
     int n, m;
     int sw;
     int *p1, *p2;
-   
+
     scanf("%d %d", &n, &m);
 
     p1 = (int *)malloc(sizeof(int) * n);
     p2 = (int *)malloc(sizeof(int) * m);
 
+ 
     input(p1, n);
     input(p2, m);
 
@@ -41,7 +46,6 @@ int main() {
         printf("Yes\n");
     else
         printf("No\n");
-
 
     free(p1);
     free(p2);
