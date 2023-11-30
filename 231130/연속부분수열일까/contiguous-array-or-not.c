@@ -10,20 +10,21 @@ void input(int *p, int k) {
 
 int fun(int *x, int *y, int n, int m) {
     int i, j, start;
-
     for (i = 0; i < n; i++) {
         if (x[i] == y[0]) {
             start = i;
-            break;
+            
+            for (j = 0; j < m && i + j < n; j++) {
+                if (x[i + j] != y[j]) {
+                    break;
+                }
+            }
+            if (j == m) {
+                return 1;
+            }
         }
     }
-    
-    if (n - start < m) return 0;
-    j = 0; 
-
-    for (i = start; i < n && j < m; i++, j++)
-        if (x[i] != y[j]) return 0;
-    return 1;
+    return 0;
 }
 
 int main() {
